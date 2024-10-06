@@ -1,0 +1,61 @@
+@startuml
+
+class Aluno {
+    - nome: String
+    - email: String
+    - cpf: String
+    - rg: String
+    - endereco: String
+    - instituicaoEnsino: Instituicao
+    - curso: String
+    - saldoMoedas: int
+    + consultarExtrato(): void
+    + receberMoedas(moedas: int, mensagem: String): void
+    + trocarMoedas(vantagem: Vantagem): void
+}
+
+class Professor {
+    - nome: String
+    - cpf: String
+    - departamento: String
+    - instituicao: Instituicao
+    - saldoMoedas: int
+    + enviarMoedas(aluno: Aluno, moedas: int, mensagem: String): void
+    + consultarExtrato(): void
+}
+
+class Instituicao {
+    - nome: String
+    - endereco: String
+    + listarCursos(): List<String>
+}
+
+class EmpresaParceira {
+    - nome: String
+    - cnpj: String
+    - vantagens: List<Vantagem>
+    + cadastrarVantagem(vantagem: Vantagem): void
+}
+
+class Vantagem {
+    - descricao: String
+    - custo: int
+    - foto: String
+    + gerarCodigoCupom(): String
+}
+
+abstract class Usuario {
+    - login: String
+    - senha: String
+    + autenticar(): boolean
+}
+
+Aluno --|> Usuario
+Professor --|> Usuario
+EmpresaParceira --|> Usuario
+
+Aluno --> Instituicao
+Professor --> Instituicao
+EmpresaParceira --> Vantagem
+
+@enduml
