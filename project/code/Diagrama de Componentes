@@ -1,0 +1,27 @@
+@startuml
+
+package "Sistema de Mérito" {
+
+    [Interface de Usuário] --> [Gerenciador de Autenticação]
+    [Interface de Usuário] --> [Gerenciador de Alunos]
+    [Interface de Usuário] --> [Gerenciador de Professores]
+    [Interface de Usuário] --> [Gerenciador de Empresas]
+
+    [Gerenciador de Alunos] --> [Sistema de Notificações]
+    [Gerenciador de Professores] --> [Sistema de Notificações]
+    [Gerenciador de Empresas] --> [Sistema de Notificações]
+
+    [Gerenciador de Alunos] --> [Banco de Dados]
+    [Gerenciador de Professores] --> [Banco de Dados]
+    [Gerenciador de Empresas] --> [Banco de Dados]
+    [Gerenciador de Autenticação] --> [Banco de Dados]
+
+    [Gerenciador de Alunos] --> [Gerenciador de Vantagens]
+    [Gerenciador de Empresas] --> [Gerenciador de Vantagens]
+
+    [Gerenciador de Professores] --> [Gerenciador de Moedas]
+    [Gerenciador de Alunos] --> [Gerenciador de Moedas]
+
+}
+
+@enduml
