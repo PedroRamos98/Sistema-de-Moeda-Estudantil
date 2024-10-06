@@ -1,15 +1,11 @@
-# Nome do projeto
-Escreva um ou dois parágrafo resumindo o objetivo do seu projeto.
+# Sistema de Moedas Estudantil
+O projeto visa desenvolver um sistema de mérito acadêmico que facilita a interação entre alunos, professores e empresas parceiras, promovendo o reconhecimento e a recompensa de comportamentos e desempenhos exemplares no ambiente educacional. Alunos poderão se cadastrar no sistema, receber moedas de professores como forma de reconhecimento e trocar essas moedas por vantagens oferecidas por empresas parceiras, como descontos em serviços e produtos. Professores, por sua vez, terão a capacidade de distribuir moedas aos alunos, incentivando a participação e o bom comportamento, enquanto empresas parceiras poderão cadastrar vantagens que incentivem o engajamento dos alunos.
 
 ## Integrantes
-* Nome completo do aluno 1
-* Nome completo do aluno 2
-* Nome completo do aluno 3
-* Nome completo do aluno 4
+* Pedro Moreira Ramos
+* Augusto Andrade
+* Rafael Chequer
+* Davi Aguilar
 
 ## Orientadores
-* Nome completo do professor 1
-* Nome completo do professor 2
-
-## Instruções de utilização
-Assim que a primeira versão do sistema estiver disponível, deverá complementar com as instruções de utilização. Descreva como instalar eventuais dependências e como executar a aplicação.
+* Cristiano de Macêdo Neto
