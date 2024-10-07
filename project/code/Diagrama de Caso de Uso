@@ -6,7 +6,6 @@ actor "Empresa Parceira" as Empresa
 
 usecase "Cadastrar-se no Sistema" as UC1
 usecase "Consultar Extrato" as UC2
-usecase "Receber Moedas" as UC3
 usecase "Trocar Moedas por Vantagens" as UC4
 usecase "Cadastrar Vantagem" as UC5
 usecase "Enviar Moedas" as UC6
@@ -14,7 +13,6 @@ usecase "Notificar por Email" as UC7
 
 Aluno --> UC1
 Aluno --> UC2
-Aluno --> UC3
 Aluno --> UC4
 
 Professor --> UC2
