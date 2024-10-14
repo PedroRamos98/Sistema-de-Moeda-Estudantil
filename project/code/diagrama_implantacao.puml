@@ -1,0 +1,22 @@
+
+@startuml
+node "Cliente Web (Navegador)" {
+}
+
+node "Servidor Web (API)" {
+    [Aplicação Backend]
+}
+
+node "Servidor de Banco de Dados" {
+    [Banco de Dados MySQL/PostgreSQL]
+}
+
+node "Servidor de E-mail (SMTP)" {
+    [Sistema de Notificações por E-mail]
+}
+
+"Cliente Web (Navegador)" --> "Servidor Web (API)"
+"Servidor Web (API)" --> "Servidor de Banco de Dados"
+"Servidor Web (API)" --> "Servidor de E-mail (SMTP)"
+
+@enduml

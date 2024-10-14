@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/moedaestudantecombd.iml" filepath="$PROJECT_DIR$/moedaestudantecombd.iml" />
+      <module fileurl="file://$PROJECT_DIR$/moedaestudante.iml" filepath="$PROJECT_DIR$/moedaestudante.iml" />
     </modules>
   </component>
 </project>

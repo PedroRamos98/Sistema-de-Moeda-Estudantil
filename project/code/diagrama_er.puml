@@ -1,0 +1,80 @@
+@startuml
+
+entity "Aluno" {
+    +id: int
+    nome: String
+    email: String
+    cpf: String
+    rg: String
+    endereco: String
+    curso: String
+    saldoMoedas: int
+}
+
+entity "Professor" {
+    +id: int
+    nome: String
+    cpf: String
+    departamento: String
+    saldoMoedas: int
+}
+
+entity "Instituicao" {
+    +id: int
+    nome: String
+    endereco: String
+}
+
+entity "EmpresaParceira" {
+    +id: int
+    nome: String
+    cnpj: String
+}
+
+entity "Vantagem" {
+    +id: int
+    descricao: String
+    custo: int
+    foto: String
+}
+
+entity "Usuario" {
+    +id: int
+    login: String
+    senha: String
+}
+
+entity "TransacaoMoeda" {
+    +id: int
+    quantidade: int
+    data: Date
+    mensagem: String
+}
+
+entity "Autenticacao" {
+    +id: int
+    login: String
+    senha: String
+}
+
+entity "Curso" {
+    +id: int
+    nome: String
+}
+
+' Relacionamentos
+Aluno --|> Usuario
+Professor --|> Usuario
+EmpresaParceira --|> Usuario
+
+Aluno }o--|| Instituicao : "frequenta"
+Professor }o--|| Instituicao : "trabalha"
+EmpresaParceira ||--o{ Vantagem : "oferece"
+
+Aluno ||--o{ TransacaoMoeda : "recebe"
+Professor ||--o{ TransacaoMoeda : "envia"
+
+Aluno }o--o{ Vantagem : "troca por"
+Instituicao ||--o{ Curso : "oferece"
+
+@enduml
