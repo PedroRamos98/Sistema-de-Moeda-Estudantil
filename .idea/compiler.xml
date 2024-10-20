@@ -6,12 +6,17 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
+        <module name="Sistema-de-Moeda-Estudantil" />
         <module name="moedaestudante" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="Sistema-de-Moeda-Estudantil" target="17" />
+    </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="Sistema-de-Moeda-Estudantil" options="-parameters" />
       <module name="moedaestudante" options="-parameters" />
       <module name="moedaestudantecombd" options="-parameters" />
     </option>
