@@ -20,4 +20,12 @@ public class AlunoService {
     public List<Aluno> listarTodos() {
         return alunoRepository.findAll();
     }
+
+    public Aluno buscarPorId(Long id) {
+        return alunoRepository.findById(id).orElse(null);
+    }
+
+    public void deletarAluno(Long id) {
+        alunoRepository.deleteById(id);
+    }
 }
