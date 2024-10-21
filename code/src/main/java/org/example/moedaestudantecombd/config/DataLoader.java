@@ -9,6 +9,7 @@ import org.springframework.context.annotation.Configuration;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
+import java.util.Objects;
 
 @Configuration
 public class DataLoader {
@@ -17,7 +18,7 @@ public class DataLoader {
     CommandLineRunner loadData(AlunoService alunoService) {
         return args -> {
             try (BufferedReader reader = new BufferedReader(new InputStreamReader(
-                    getClass().getResourceAsStream("/alunos.data"), StandardCharsets.UTF_8))) {
+                    Objects.requireNonNull(getClass().getResourceAsStream("/alunos.data")), StandardCharsets.UTF_8))) {
                 String line;
                 while ((line = reader.readLine()) != null) {
                     String[] data = line.split(",");

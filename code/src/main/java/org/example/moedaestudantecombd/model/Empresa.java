@@ -1,8 +1,13 @@
 package org.example.moedaestudantecombd.model;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
+
 import java.util.List;
 
+@Setter
+@Getter
 @Entity
 public class Empresa {
 
@@ -15,28 +20,4 @@ public class Empresa {
     @OneToMany(mappedBy = "empresa", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Vantagem> vantagens;
 
-    // Getters e Setters
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getNome() {
-        return nome;
-    }
-
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
-
-    public List<Vantagem> getVantagens() {
-        return vantagens;
-    }
-
-    public void setVantagens(List<Vantagem> vantagens) {
-        this.vantagens = vantagens;
-    }
 }

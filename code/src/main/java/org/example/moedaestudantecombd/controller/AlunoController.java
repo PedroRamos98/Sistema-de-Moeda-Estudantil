@@ -18,6 +18,11 @@ public class AlunoController {
     @Autowired
     private AlunoService alunoService;
 
+    @GetMapping("/cadastro")
+    public String mostrarCadastro() {
+        return "cadastro";
+    }
+
     @PostMapping("/cadastro")
     public String cadastrarAluno(@ModelAttribute Aluno aluno) {
         alunoService.salvarAluno(aluno);
