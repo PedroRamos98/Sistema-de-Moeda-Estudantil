@@ -22,5 +22,4 @@ public class Vantagem {
     @ManyToOne
     @JoinColumn(name = "empresa_id")
     private Empresa empresa;
-
 }

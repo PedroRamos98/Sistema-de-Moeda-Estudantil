@@ -46,7 +46,6 @@ public class EmpresaController {
             return "erro";
         }
 
-        // Redireciona para a página de listagem de empresas após o cadastro
         return "redirect:/empresa/listar";
     }
 

@@ -19,5 +19,4 @@ public class Empresa {
 
     @OneToMany(mappedBy = "empresa", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Vantagem> vantagens;
-
 }

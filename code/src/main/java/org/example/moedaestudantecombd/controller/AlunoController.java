@@ -36,7 +36,6 @@ public class AlunoController {
         return "alunos";
     }
 
-    // Método para editar aluno
     @GetMapping("/editar/{id}")
     public String mostrarFormEditar(@PathVariable Long id, Model model) {
         Aluno aluno = alunoService.buscarPorId(id);
