@@ -1,33 +1,44 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
+    <meta charset="UTF-8">
     <title>Cadastro de Aluno</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
 </head>
 <body>
-<h1>Cadastro de Aluno</h1>
-<form action="#" th:action="@{/alunos/cadastro}" th:object="${aluno}" method="post">
-    <label>Nome:</label>
-    <input type="text" th:field="*{nome}" /><br />
-
-    <label>Email:</label>
-    <input type="email" th:field="*{email}" /><br />
-
-    <label>CPF:</label>
-    <input type="text" th:field="*{cpf}" /><br />
-
-    <label>RG:</label>
-    <input type="text" th:field="*{rg}" /><br />
-
-    <label>Endereço:</label>
-    <input type="text" th:field="*{endereco}" /><br />
-
-    <label>Instituição:</label>
-    <input type="text" th:field="*{instituicao}" /><br />
-
-    <label>Curso:</label>
-    <input type="text" th:field="*{curso}" /><br />
-
-    <button type="submit">Cadastrar</button>
-</form>
+<div class="container mt-5">
+    <h1>Cadastro de Aluno</h1>
+    <form th:action="@{/alunos/cadastro}" method="post" enctype="application/x-www-form-urlencoded">
+        <div class="mb-3">
+            <label for="nome" class="form-label">Nome</label>
+            <input type="text" class="form-control" id="nome" name="nome" required>
+        </div>
+        <div class="mb-3">
+            <label for="email" class="form-label">Email</label>
+            <input type="email" class="form-control" id="email" name="email" required>
+        </div>
+        <div class="mb-3">
+            <label for="cpf" class="form-label">CPF</label>
+            <input type="text" class="form-control" id="cpf" name="cpf" required>
+        </div>
+        <div class="mb-3">
+            <label for="rg" class="form-label">RG</label>
+            <input type="text" class="form-control" id="rg" name="rg" required>
+        </div>
+        <div class="mb-3">
+            <label for="endereco" class="form-label">Endereço</label>
+            <input type="text" class="form-control" id="endereco" name="endereco" required>
+        </div>
+        <div class="mb-3">
+            <label for="instituicaoEnsino" class="form-label">Instituição de Ensino</label>
+            <input type="text" class="form-control" id="instituicaoEnsino" name="instituicaoEnsino" required>
+        </div>
+        <div class="mb-3">
+            <label for="curso" class="form-label">Curso</label>
+            <input type="text" class="form-control" id="curso" name="curso" required>
+        </div>
+        <button type="submit" class="btn btn-primary">Cadastrar</button>
+    </form>
+</div>
 </body>
 </html>

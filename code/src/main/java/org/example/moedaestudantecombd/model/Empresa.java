@@ -1,10 +1,7 @@
 package org.example.moedaestudantecombd.model;
 
-
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
+import java.util.List;
 
 @Entity
 public class Empresa {
@@ -15,11 +12,10 @@ public class Empresa {
 
     private String nome;
 
-    // Default constructor
-    public Empresa() {
-    }
+    @OneToMany(mappedBy = "empresa", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Vantagem> vantagens;
 
-    // Getters and setters
+    // Getters e Setters
     public Long getId() {
         return id;
     }
@@ -34,5 +30,13 @@ public class Empresa {
 
     public void setNome(String nome) {
         this.nome = nome;
+    }
+
+    public List<Vantagem> getVantagens() {
+        return vantagens;
+    }
+
+    public void setVantagens(List<Vantagem> vantagens) {
+        this.vantagens = vantagens;
     }
 }
