@@ -29,8 +29,6 @@ public class EmpresaService {
     @Autowired
     private VantagemRepository vantagemRepository;
 
-
-
     @Transactional
     public void cadastrarEmpresa(String nomeEmpresa, String descricao, double custo, MultipartFile fotoProduto) throws IOException {
         logger.info("Criando nova empresa: {}", nomeEmpresa);
@@ -45,7 +43,6 @@ public class EmpresaService {
         vantagem.setCusto(custo);
         vantagem.setEmpresa(empresa);
 
-        // Salvar a imagem como string Base64
         if (!fotoProduto.isEmpty()) {
             try {
                 byte[] bytes = fotoProduto.getBytes();

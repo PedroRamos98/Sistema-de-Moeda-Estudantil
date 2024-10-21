@@ -13,11 +13,19 @@ public class AlunoService {
     @Autowired
     private AlunoRepository alunoRepository;
 
-    public Aluno salvarAluno(Aluno aluno) {
-        return alunoRepository.save(aluno);
+    public void salvarAluno(Aluno aluno) {
+        alunoRepository.save(aluno);
     }
 
     public List<Aluno> listarTodos() {
         return alunoRepository.findAll();
+    }
+
+    public Aluno buscarPorId(Long id) {
+        return alunoRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Aluno não encontrado"));
+    }
+
+    public void removerAluno(Long id) {
+        alunoRepository.deleteById(id);
     }
 }
