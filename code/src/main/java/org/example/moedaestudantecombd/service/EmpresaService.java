@@ -16,6 +16,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.List;
 
 @Service
 public class EmpresaService {
@@ -59,5 +60,9 @@ public class EmpresaService {
 
         vantagemRepository.save(vantagem);
         logger.info("Vantagem salva: {}", vantagem.getId());
+    }
+
+    public List<Empresa> listarTodas() {
+        return empresaRepository.findAll();
     }
 }

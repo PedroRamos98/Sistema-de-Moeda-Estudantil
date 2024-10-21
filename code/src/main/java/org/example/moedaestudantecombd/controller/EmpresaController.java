@@ -11,6 +11,8 @@ import org.example.moedaestudantecombd.model.Empresa;
 import org.example.moedaestudantecombd.service.EmpresaService;
 
 import java.io.IOException;
+import java.util.List;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -46,4 +48,13 @@ public class EmpresaController {
 
         return "redirect:/empresa/cadastro";
     }
+
+    @GetMapping("/empresa/listar")
+    public String listarEmpresas(Model model) {
+        List<Empresa> empresas = empresaService.listarTodas();
+        model.addAttribute("empresas", empresas);
+        return "empresas";
+    }
+
+
 }

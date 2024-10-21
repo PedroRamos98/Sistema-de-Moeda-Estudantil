@@ -1,27 +1,55 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
+  <meta charset="UTF-8">
   <title>Cadastro de Empresas Parceiras</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+  <style>
+    body {
+      background-color: #f8f9fa;
+    }
+    .container {
+      background-color: #ffffff;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+    .form-label {
+      font-weight: bold;
+    }
+    .btn-primary {
+      background-color: #007bff;
+      border-color: #007bff;
+    }
+    .btn-primary:hover {
+      background-color: #0056b3;
+      border-color: #004085;
+    }
+  </style>
 </head>
 <body>
-<h2>Cadastro de Empresa Parceira</h2>
-
-<form action="#" th:action="@{/empresa/cadastro}" method="post" enctype="multipart/form-data">
-  <label for="nomeEmpresa">Nome da Empresa:</label>
-  <input type="text" id="nomeEmpresa" name="nomeEmpresa" required>
-
-  <h2>Cadastro de Vantagem</h2>
-
-  <label for="descricao">Descrição da Vantagem:</label>
-  <textarea id="descricao" name="descricao" required></textarea>
-
-  <label for="custo">Custo (em moedas):</label>
-  <input type="number" id="custo" name="custo" required>
-
-  <label for="fotoProduto">Foto do Produto:</label>
-  <input type="file" id="fotoProduto" name="fotoProduto" accept="image/*" required>
-
-  <button type="submit">Cadastrar</button>
-</form>
+<div class="container mt-5">
+  <h1 class="text-center mb-4">Cadastro de Empresa Parceira</h1>
+  <form th:action="@{/empresa/cadastro}" method="post" enctype="multipart/form-data">
+    <div class="mb-3">
+      <label for="nomeEmpresa" class="form-label">Nome da Empresa</label>
+      <input type="text" class="form-control" id="nomeEmpresa" name="nomeEmpresa" required>
+    </div>
+    <h2 class="text-center mb-4">Cadastro de Vantagem</h2>
+    <div class="mb-3">
+      <label for="descricao" class="form-label">Descrição da Vantagem</label>
+      <textarea class="form-control" id="descricao" name="descricao" required></textarea>
+    </div>
+    <div class="mb-3">
+      <label for="custo" class="form-label">Custo (em moedas)</label>
+      <input type="number" class="form-control" id="custo" name="custo" required>
+    </div>
+    <div class="mb-3">
+      <label for="fotoProduto" class="form-label">Foto do Produto</label>
+      <input type="file" class="form-control" id="fotoProduto" name="fotoProduto" accept="image/*" required>
+    </div>
+    <button type="submit" class="btn btn-primary w-100">Cadastrar</button>
+  </form>
+</div>
 </body>
 </html>
