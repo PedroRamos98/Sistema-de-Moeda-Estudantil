@@ -3,9 +3,7 @@ package org.example.moedaestudantecombd.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.example.moedaestudantecombd.model.Empresa;
 import org.example.moedaestudantecombd.service.EmpresaService;
@@ -17,6 +15,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 @Controller
+@RequestMapping("/empresa")
 public class EmpresaController {
 
     private static final Logger logger = LoggerFactory.getLogger(EmpresaController.class);
@@ -24,13 +23,13 @@ public class EmpresaController {
     @Autowired
     private EmpresaService empresaService;
 
-    @GetMapping("/empresa/cadastro")
+    @GetMapping("/cadastro")
     public String mostrarFormularioCadastro(Model model) {
         model.addAttribute("empresa", new Empresa());
         return "cadastroEmpresa";
     }
 
-    @PostMapping("/empresa/cadastro")
+    @PostMapping("/cadastro")
     public String cadastrarEmpresa(
             @RequestParam("nomeEmpresa") String nomeEmpresa,
             @RequestParam("descricao") String descricao,
@@ -50,12 +49,33 @@ public class EmpresaController {
         return "redirect:/empresa/listar";
     }
 
-    @GetMapping("/empresa/listar")
+    @GetMapping("/listar")
     public String listarEmpresas(Model model) {
         List<Empresa> empresas = empresaService.listarTodas();
         model.addAttribute("empresas", empresas);
         return "empresas";
     }
 
+    @GetMapping("/editar/{id}")
+    public String editarEmpresa(@PathVariable Long id, Model model) {
+        Empresa empresa = empresaService.buscarPorId(id);
+        model.addAttribute("empresa", empresa);
+        return "editarEmpresa";
+    }
 
+    @PostMapping("/atualizar")
+    public String atualizarEmpresa(@ModelAttribute Empresa empresa) {
+        Empresa empresaExistente = empresaService.buscarPorId(empresa.getId());
+        if (empresaExistente != null) {
+            empresaExistente.setNome(empresa.getNome());
+            empresaService.atualizarEmpresa(empresaExistente);
+        }
+        return "redirect:/empresa/listar";
+    }
+
+    @GetMapping("/deletar/{id}")
+    public String deletarEmpresa(@PathVariable Long id) {
+        empresaService.deletarEmpresa(id);
+        return "redirect:/empresa/listar";
+    }
 }

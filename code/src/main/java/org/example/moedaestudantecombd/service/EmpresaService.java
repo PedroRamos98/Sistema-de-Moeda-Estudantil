@@ -13,9 +13,6 @@ import org.slf4j.LoggerFactory;
 import java.util.Base64;
 
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.List;
 
 @Service
@@ -28,8 +25,6 @@ public class EmpresaService {
 
     @Autowired
     private VantagemRepository vantagemRepository;
-
-
 
     @Transactional
     public void cadastrarEmpresa(String nomeEmpresa, String descricao, double custo, MultipartFile fotoProduto) throws IOException {
@@ -64,5 +59,17 @@ public class EmpresaService {
 
     public List<Empresa> listarTodas() {
         return empresaRepository.findAll();
+    }
+
+    public Empresa buscarPorId(Long id) {
+        return empresaRepository.findById(id).orElse(null);
+    }
+
+    public Empresa atualizarEmpresa(Empresa empresa) {
+        return empresaRepository.save(empresa);
+    }
+
+    public void deletarEmpresa(Long id) {
+        empresaRepository.deleteById(id);
     }
 }

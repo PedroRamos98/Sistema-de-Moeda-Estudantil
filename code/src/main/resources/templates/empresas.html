@@ -30,6 +30,7 @@
             <th scope="col">Descrição da Vantagem</th>
             <th scope="col">Custo (em moedas)</th>
             <th scope="col">Foto do Produto</th>
+            <th scope="col">Ações</th>
         </tr>
         </thead>
         <tbody>
@@ -43,6 +44,12 @@
             </td>
             <td th:each="vantagem : ${empresa.vantagens}">
                 <img th:if="${vantagem.fotoProduto != null}" th:src="'data:image/jpeg;base64,' + ${vantagem.fotoProduto}" alt="Foto do Produto" style="max-width: 100px; max-height: 100px;"/>
+            </td>
+            <td>
+                <div class="d-flex">
+                    <a th:href="@{/empresa/editar/{id}(id=${empresa.id})}" class="btn btn-primary">Editar</a>
+                    <a th:href="@{/empresa/deletar/{id}(id=${empresa.id})}" class="btn btn-danger" onclick="return confirm('Tem certeza que deseja deletar esta empresa?');">Deletar</a>
+                </div>
             </td>
         </tr>
         </tbody>
