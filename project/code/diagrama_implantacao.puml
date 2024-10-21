@@ -8,7 +8,7 @@ node "Servidor Web (API)" {
 }
 
 node "Servidor de Banco de Dados" {
-    [Banco de Dados MySQL/PostgreSQL]
+    [Banco de Dados H2]
 }
 
 node "Servidor de E-mail (SMTP)" {

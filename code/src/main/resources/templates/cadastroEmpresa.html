@@ -35,21 +35,47 @@
       <label for="nomeEmpresa" class="form-label">Nome da Empresa</label>
       <input type="text" class="form-control" id="nomeEmpresa" name="nomeEmpresa" required>
     </div>
-    <h2 class="text-center mb-4">Cadastro de Vantagem</h2>
-    <div class="mb-3">
-      <label for="descricao" class="form-label">Descrição da Vantagem</label>
-      <textarea class="form-control" id="descricao" name="descricao" required></textarea>
+
+    <div id="vantagens-section">
+      <h2 class="text-center mb-4">Cadastro de Vantagens</h2>
+
+      <div class="mb-3">
+        <label for="descricao" class="form-label">Descrição da Vantagem</label>
+        <textarea class="form-control" id="descricao" name="descricao[]" required></textarea>
+      </div>
+      <div class="mb-3">
+        <label for="custo" class="form-label">Custo (em moedas)</label>
+        <input type="number" class="form-control" id="custo" name="custo[]" required>
+      </div>
+      <div class="mb-3">
+        <label for="fotoProduto" class="form-label">Foto do Produto</label>
+        <input type="file" class="form-control" id="fotoProduto" name="fotoProduto[]" accept="image/*">
+      </div>
     </div>
-    <div class="mb-3">
-      <label for="custo" class="form-label">Custo (em moedas)</label>
-      <input type="number" class="form-control" id="custo" name="custo" required>
-    </div>
-    <div class="mb-3">
-      <label for="fotoProduto" class="form-label">Foto do Produto</label>
-      <input type="file" class="form-control" id="fotoProduto" name="fotoProduto" accept="image/*" required>
-    </div>
-    <button type="submit" class="btn btn-primary w-100">Cadastrar</button>
+
+    <button type="button" class="btn btn-secondary" onclick="adicionarVantagem()">Adicionar Vantagem</button>
+    <button type="submit" class="btn btn-primary w-100 mt-3">Cadastrar</button>
   </form>
 </div>
+
+<script>
+  function adicionarVantagem() {
+    var section = document.getElementById('vantagens-section');
+    var novaVantagem = `
+            <div class="mb-3">
+                <label for="descricao" class="form-label">Descrição da Vantagem</label>
+                <textarea class="form-control" name="descricao[]" required></textarea>
+            </div>
+            <div class="mb-3">
+                <label for="custo" class="form-label">Custo (em moedas)</label>
+                <input type="number" class="form-control" name="custo[]" required>
+            </div>
+            <div class="mb-3">
+                <label for="fotoProduto" class="form-label">Foto do Produto</label>
+                <input type="file" class="form-control" name="fotoProduto[]" accept="image/*">
+            </div>`;
+    section.insertAdjacentHTML('beforeend', novaVantagem);
+  }
+</script>
 </body>
 </html>

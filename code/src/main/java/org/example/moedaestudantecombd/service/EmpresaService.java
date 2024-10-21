@@ -21,8 +21,6 @@ import java.util.List;
 @Service
 public class EmpresaService {
 
-    private static final Logger logger = LoggerFactory.getLogger(EmpresaService.class);
-
     @Autowired
     private EmpresaRepository empresaRepository;
 
@@ -30,36 +28,63 @@ public class EmpresaService {
     private VantagemRepository vantagemRepository;
 
     @Transactional
-    public void cadastrarEmpresa(String nomeEmpresa, String descricao, double custo, MultipartFile fotoProduto) throws IOException {
-        logger.info("Criando nova empresa: {}", nomeEmpresa);
-
+    public void cadastrarEmpresa(String nomeEmpresa, List<String> descricoes, List<Double> custos, List<MultipartFile> fotosProdutos) throws IOException {
         Empresa empresa = new Empresa();
         empresa.setNome(nomeEmpresa);
         empresaRepository.save(empresa);
-        logger.info("Empresa salva: {}", empresa.getId());
 
-        Vantagem vantagem = new Vantagem();
-        vantagem.setDescricao(descricao);
-        vantagem.setCusto(custo);
-        vantagem.setEmpresa(empresa);
+        for (int i = 0; i < descricoes.size(); i++) {
+            Vantagem vantagem = new Vantagem();
+            vantagem.setDescricao(descricoes.get(i));
+            vantagem.setCusto(custos.get(i));
+            vantagem.setEmpresa(empresa);
 
-        if (!fotoProduto.isEmpty()) {
-            try {
-                byte[] bytes = fotoProduto.getBytes();
+            if (!fotosProdutos.get(i).isEmpty()) {
+                byte[] bytes = fotosProdutos.get(i).getBytes();
                 String base64Image = Base64.getEncoder().encodeToString(bytes);
                 vantagem.setFotoProduto(base64Image);
-                logger.info("Foto do produto salva como Base64");
-            } catch (IOException e) {
-                logger.error("Erro ao salvar a imagem do produto", e);
-                throw e;
             }
-        }
 
-        vantagemRepository.save(vantagem);
-        logger.info("Vantagem salva: {}", vantagem.getId());
+            vantagemRepository.save(vantagem);
+        }
+    }
+
+    @Transactional
+    public void editarEmpresa(Long id, String nomeEmpresa, List<String> descricoes, List<Double> custos, List<MultipartFile> fotosProdutos) throws IOException {
+        Empresa empresa = empresaRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Empresa não encontrada"));
+
+        empresa.setNome(nomeEmpresa);
+        empresaRepository.save(empresa);
+
+        vantagemRepository.deleteAll(empresa.getVantagens());
+
+        for (int i = 0; i < descricoes.size(); i++) {
+            Vantagem vantagem = new Vantagem();
+            vantagem.setDescricao(descricoes.get(i));
+            vantagem.setCusto(custos.get(i));
+            vantagem.setEmpresa(empresa);
+
+            if (!fotosProdutos.get(i).isEmpty()) {
+                byte[] bytes = fotosProdutos.get(i).getBytes();
+                String base64Image = Base64.getEncoder().encodeToString(bytes);
+                vantagem.setFotoProduto(base64Image);
+            }
+
+            vantagemRepository.save(vantagem);
+        }
+    }
+
+    @Transactional
+    public void removerEmpresa(Long id) {
+        empresaRepository.deleteById(id);
+    }
+
+    public Empresa buscarPorId(Long id) {
+        return empresaRepository.findById(id).orElse(null);
     }
 
     public List<Empresa> listarTodas() {
         return empresaRepository.findAll();
     }
 }
+

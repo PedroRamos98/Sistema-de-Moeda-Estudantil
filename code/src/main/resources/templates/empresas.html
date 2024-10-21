@@ -27,22 +27,27 @@
         <thead>
         <tr>
             <th scope="col">Nome da Empresa</th>
-            <th scope="col">Descrição da Vantagem</th>
-            <th scope="col">Custo (em moedas)</th>
-            <th scope="col">Foto do Produto</th>
+            <th scope="col">Vantagens</th>
+            <th scope="col">Ações</th>
         </tr>
         </thead>
         <tbody>
         <tr th:each="empresa : ${empresas}">
             <td th:text="${empresa.nome}"></td>
-            <td th:each="vantagem : ${empresa.vantagens}">
-                <span th:text="${vantagem.descricao}"></span>
+            <td>
+                <ul>
+                    <li th:each="vantagem : ${empresa.vantagens}">
+                        <strong>Descrição:</strong> <span th:text="${vantagem.descricao}"></span><br>
+                        <strong>Custo:</strong> <span th:text="${vantagem.custo}"></span><br>
+                        <img th:if="${vantagem.fotoProduto != null}" th:src="'data:image/jpeg;base64,' + ${vantagem.fotoProduto}" alt="Foto do Produto" style="max-width: 100px; max-height: 100px;"/>
+                    </li>
+                </ul>
             </td>
-            <td th:each="vantagem : ${empresa.vantagens}">
-                <span th:text="${vantagem.custo}"></span>
-            </td>
-            <td th:each="vantagem : ${empresa.vantagens}">
-                <img th:if="${vantagem.fotoProduto != null}" th:src="'data:image/jpeg;base64,' + ${vantagem.fotoProduto}" alt="Foto do Produto" style="max-width: 100px; max-height: 100px;"/>
+            <td>
+                <a th:href="@{/empresa/editar/{id}(id=${empresa.id})}" class="btn btn-primary btn-sm">Editar</a>
+                <form th:action="@{/empresa/remover/{id}(id=${empresa.id})}" method="post" style="display:inline;">
+                    <button type="submit" class="btn btn-danger btn-sm">Remover</button>
+                </form>
             </td>
         </tr>
         </tbody>

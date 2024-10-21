@@ -1,0 +1,104 @@
+<style>
+  body {
+    background-color: #f8f9fa;
+    font-family: 'Arial', sans-serif;
+  }
+  .container {
+    background-color: #ffffff;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    max-width: 800px;
+    margin: 40px auto;
+  }
+  .form-label {
+    font-weight: bold;
+    color: #007bff;
+  }
+  .form-control {
+    border-radius: 5px;
+    border: 1px solid #ced4da;
+    padding: 10px;
+  }
+  .form-control:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.25);
+  }
+  .btn-primary {
+    background-color: #007bff;
+    border: none;
+    border-radius: 5px;
+    padding: 10px;
+    font-size: 16px;
+    font-weight: bold;
+    color: #ffffff;
+    margin-top: 20px;
+  }
+  .btn-danger {
+    background-color: #dc3545;
+    border: none;
+    border-radius: 5px;
+    padding: 5px 10px;
+    font-size: 14px;
+    color: #ffffff;
+  }
+  .btn-primary:hover, .btn-danger:hover {
+    opacity: 0.9;
+  }
+  .mb-3 {
+    margin-bottom: 20px;
+  }
+  img {
+    display: block;
+    margin-left: 10px;
+    max-width: 100px;
+  }
+  .form-group {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+  }
+  .form-group img {
+    margin-top: 0;
+  }
+  .form-group > div {
+    flex: 1;
+  }
+</style>
+
+<div class="container">
+  <form th:action="@{/empresa/editar/{id}(id=${empresa.id})}" method="post" enctype="multipart/form-data">
+    <div class="mb-3">
+      <label for="nomeEmpresa" class="form-label">Nome da Empresa</label>
+      <input type="text" class="form-control" id="nomeEmpresa" name="nomeEmpresa" th:value="${empresa.nome}" required>
+    </div>
+
+    <div th:each="vantagem, iterStat : ${empresa.vantagens}">
+      <hr>
+      <div class="form-group">
+        <div class="mb-3">
+          <label for="descricao" class="form-label">Descrição da Vantagem</label>
+          <input type="text" class="form-control" id="descricao" name="descricao[]" th:value="${vantagem.descricao}" required>
+        </div>
+        <div class="mb-3">
+          <label for="custo" class="form-label">Custo (em moedas)</label>
+          <input type="number" class="form-control" id="custo" name="custo[]" th:value="${vantagem.custo}" required>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <div class="mb-3">
+          <label for="fotoProduto" class="form-label">Foto do Produto</label>
+          <input type="file" class="form-control" id="fotoProduto" name="fotoProduto[]">
+        </div>
+        <img th:src="'data:image/jpeg;base64,' + ${vantagem.fotoProduto}" alt="Foto Atual"/>
+      </div>
+
+      <button type="submit" th:formaction="@{/empresa/removerVantagem/{vantagemId}(vantagemId=${vantagem.id})}" class="btn btn-danger">Remover Vantagem</button>
+    </div>
+
+    <hr>
+    <button type="submit" class="btn btn-primary w-100">Salvar Alterações</button>
+  </form>
+</div>

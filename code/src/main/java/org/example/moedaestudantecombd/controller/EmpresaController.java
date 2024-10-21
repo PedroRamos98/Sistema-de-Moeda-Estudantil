@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
@@ -13,13 +14,8 @@ import org.example.moedaestudantecombd.service.EmpresaService;
 import java.io.IOException;
 import java.util.List;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 @Controller
 public class EmpresaController {
-
-    private static final Logger logger = LoggerFactory.getLogger(EmpresaController.class);
 
     @Autowired
     private EmpresaService empresaService;
@@ -33,19 +29,44 @@ public class EmpresaController {
     @PostMapping("/empresa/cadastro")
     public String cadastrarEmpresa(
             @RequestParam("nomeEmpresa") String nomeEmpresa,
-            @RequestParam("descricao") String descricao,
-            @RequestParam("custo") double custo,
-            @RequestParam("fotoProduto") MultipartFile fotoProduto
+            @RequestParam("descricao[]") List<String> descricoes,
+            @RequestParam("custo[]") List<Double> custos,
+            @RequestParam("fotoProduto[]") List<MultipartFile> fotosProdutos
     ) {
         try {
-            logger.info("Iniciando cadastro de empresa: {}", nomeEmpresa);
-            empresaService.cadastrarEmpresa(nomeEmpresa, descricao, custo, fotoProduto);
-            logger.info("Empresa cadastrada com sucesso: {}", nomeEmpresa);
+            empresaService.cadastrarEmpresa(nomeEmpresa, descricoes, custos, fotosProdutos);
         } catch (IOException e) {
-            logger.error("Erro ao cadastrar empresa", e);
             return "erro";
         }
+        return "redirect:/empresa/listar";
+    }
 
+    @GetMapping("/empresa/editar/{id}")
+    public String mostrarFormularioEdicao(@PathVariable("id") Long id, Model model) {
+        Empresa empresa = empresaService.buscarPorId(id);
+        model.addAttribute("empresa", empresa);
+        return "editarEmpresa";
+    }
+
+    @PostMapping("/empresa/editar/{id}")
+    public String editarEmpresa(
+            @PathVariable("id") Long id,
+            @RequestParam("nomeEmpresa") String nomeEmpresa,
+            @RequestParam("descricao[]") List<String> descricoes,
+            @RequestParam("custo[]") List<Double> custos,
+            @RequestParam("fotoProduto[]") List<MultipartFile> fotosProdutos
+    ) {
+        try {
+            empresaService.editarEmpresa(id, nomeEmpresa, descricoes, custos, fotosProdutos);
+        } catch (IOException e) {
+            return "erro";
+        }
+        return "redirect:/empresa/listar";
+    }
+
+    @PostMapping("/empresa/remover/{id}")
+    public String removerEmpresa(@PathVariable("id") Long id) {
+        empresaService.removerEmpresa(id);
         return "redirect:/empresa/listar";
     }
 
@@ -55,6 +76,4 @@ public class EmpresaController {
         model.addAttribute("empresas", empresas);
         return "empresas";
     }
-
-
 }
