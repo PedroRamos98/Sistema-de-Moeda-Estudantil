@@ -11,7 +11,9 @@ public class Vantagem {
 
     private String descricao;
     private double custo;
-    private String fotoProduto; // Nome do arquivo da foto
+
+    @Lob
+    private String fotoProduto;
 
     @ManyToOne
     @JoinColumn(name = "empresa_id")

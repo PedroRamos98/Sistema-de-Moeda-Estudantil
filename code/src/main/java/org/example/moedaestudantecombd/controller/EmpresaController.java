@@ -22,13 +22,13 @@ public class EmpresaController {
     @Autowired
     private EmpresaService empresaService;
 
-    @GetMapping("/empresa/cadastrar")
+    @GetMapping("/empresa/cadastro")
     public String mostrarFormularioCadastro(Model model) {
         model.addAttribute("empresa", new Empresa());
         return "cadastroEmpresa";
     }
 
-    @PostMapping("/empresa/cadastrar")
+    @PostMapping("/empresa/cadastro")
     public String cadastrarEmpresa(
             @RequestParam("nomeEmpresa") String nomeEmpresa,
             @RequestParam("descricao") String descricao,
@@ -44,6 +44,6 @@ public class EmpresaController {
             return "erro";
         }
 
-        return "redirect:/empresa/cadastrar";
+        return "redirect:/empresa/cadastro";
     }
 }

@@ -10,6 +10,7 @@ import org.example.moedaestudantecombd.model.Vantagem;
 import org.example.moedaestudantecombd.repository.VantagemRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import java.util.Base64;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -27,7 +28,7 @@ public class EmpresaService {
     @Autowired
     private VantagemRepository vantagemRepository;
 
-    private static String UPLOADED_FOLDER = "uploads/";
+
 
     @Transactional
     public void cadastrarEmpresa(String nomeEmpresa, String descricao, double custo, MultipartFile fotoProduto) throws IOException {
@@ -43,14 +44,13 @@ public class EmpresaService {
         vantagem.setCusto(custo);
         vantagem.setEmpresa(empresa);
 
-        // Salvar a imagem
+        // Salvar a imagem como string Base64
         if (!fotoProduto.isEmpty()) {
             try {
                 byte[] bytes = fotoProduto.getBytes();
-                Path path = Paths.get(UPLOADED_FOLDER + fotoProduto.getOriginalFilename());
-                Files.write(path, bytes);
-                vantagem.setFotoProduto(fotoProduto.getOriginalFilename());
-                logger.info("Foto do produto salva: {}", fotoProduto.getOriginalFilename());
+                String base64Image = Base64.getEncoder().encodeToString(bytes);
+                vantagem.setFotoProduto(base64Image);
+                logger.info("Foto do produto salva como Base64");
             } catch (IOException e) {
                 logger.error("Erro ao salvar a imagem do produto", e);
                 throw e;
