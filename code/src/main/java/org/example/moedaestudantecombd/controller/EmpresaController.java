@@ -46,7 +46,8 @@ public class EmpresaController {
             return "erro";
         }
 
-        return "redirect:/empresa/cadastro";
+        // Redireciona para a página de listagem de empresas após o cadastro
+        return "redirect:/empresa/listar";
     }
 
     @GetMapping("/empresa/listar")
