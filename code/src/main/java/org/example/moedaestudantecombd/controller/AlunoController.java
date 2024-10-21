@@ -19,10 +19,11 @@ public class AlunoController {
     private AlunoService alunoService;
 
     @PostMapping("/cadastro")
-    public ResponseEntity<Aluno> cadastrarAluno(@ModelAttribute Aluno aluno) {
-        Aluno novoAluno = alunoService.salvarAluno(aluno);
-        return new ResponseEntity<>(novoAluno, HttpStatus.CREATED);
+    public String cadastrarAluno(@ModelAttribute Aluno aluno) {
+        alunoService.salvarAluno(aluno);
+        return "redirect:/alunos/listar";
     }
+
 
     @GetMapping("/listar")
     public String listarAlunos(Model model) {
