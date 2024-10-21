@@ -35,10 +35,14 @@
         <tbody>
         <tr th:each="empresa : ${empresas}">
             <td th:text="${empresa.nome}"></td>
-            <td th:text="${empresa.vantagem?.descricao}"></td>
-            <td th:text="${empresa.vantagem?.custo}"></td>
-            <td>
-                <img th:if="${empresa.vantagem?.fotoProduto != null}" th:src="'data:image/jpeg;base64,' + ${empresa.vantagem.fotoProduto}" alt="Foto do Produto" style="max-width: 100px; max-height: 100px;"/>
+            <td th:each="vantagem : ${empresa.vantagens}">
+                <span th:text="${vantagem.descricao}"></span>
+            </td>
+            <td th:each="vantagem : ${empresa.vantagens}">
+                <span th:text="${vantagem.custo}"></span>
+            </td>
+            <td th:each="vantagem : ${empresa.vantagens}">
+                <img th:if="${vantagem.fotoProduto != null}" th:src="'data:image/jpeg;base64,' + ${vantagem.fotoProduto}" alt="Foto do Produto" style="max-width: 100px; max-height: 100px;"/>
             </td>
         </tr>
         </tbody>
