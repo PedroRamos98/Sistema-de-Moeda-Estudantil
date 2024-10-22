@@ -28,6 +28,4 @@ build/
 .DS_Store
 Thumbs.db
 
-# Application specific
-application.properties
-application.yml
+#

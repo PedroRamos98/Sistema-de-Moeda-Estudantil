@@ -13,6 +13,7 @@
       padding: 30px;
       border-radius: 10px;
       box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      max-width: 90%;
     }
     .table thead th {
       background-color: #007bff;
@@ -46,9 +47,10 @@
       <td th:text="${aluno.instituicaoEnsino}"></td>
       <td th:text="${aluno.curso}"></td>
       <td>
-        <a th:href="@{/alunos/editar/{id}(id=${aluno.id})}" class="btn btn-sm btn-warning">Editar</a>
-        <a th:href="@{/alunos/remover/{id}(id=${aluno.id})}" class="btn btn-sm btn-danger"
-           onclick="return confirm('Tem certeza que deseja remover este aluno?');">Remover</a>
+        <div class="d-flex">
+          <a th:href="@{/alunos/editar/{id}(id=${aluno.id})}" class="btn btn-warning btn-sm me-2">Editar</a>
+          <a th:href="@{/alunos/deletar/{id}(id=${aluno.id})}" class="btn btn-danger btn-sm">Deletar</a>
+        </div>
       </td>
     </tr>
     </tbody>

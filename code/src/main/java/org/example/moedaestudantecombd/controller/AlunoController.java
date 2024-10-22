@@ -1,6 +1,7 @@
 package org.example.moedaestudantecombd.controller;
 
 import org.example.moedaestudantecombd.model.Aluno;
+import org.example.moedaestudantecombd.repository.AlunoRepository;
 import org.example.moedaestudantecombd.service.AlunoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -9,7 +10,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping("/alunos")
@@ -17,6 +20,9 @@ public class AlunoController {
 
     @Autowired
     private AlunoService alunoService;
+
+    @Autowired
+    private AlunoRepository alunoRepository;
 
     @GetMapping("/cadastro")
     public String mostrarCadastro() {
