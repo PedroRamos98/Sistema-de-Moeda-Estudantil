@@ -52,17 +52,21 @@ public class EmpresaService {
     @Transactional
     public void editarEmpresa(Long id, String nomeEmpresa, List<String> descricoes, List<Double> custos, List<MultipartFile> fotosProdutos) throws IOException {
         Empresa empresa = empresaRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Empresa não encontrada"));
-
         empresa.setNome(nomeEmpresa);
         empresaRepository.save(empresa);
 
-        vantagemRepository.deleteAll(empresa.getVantagens());
-
+        List<Vantagem> vantagensExistentes = empresa.getVantagens();
         for (int i = 0; i < descricoes.size(); i++) {
-            Vantagem vantagem = new Vantagem();
+            Vantagem vantagem;
+            if (i < vantagensExistentes.size()) {
+                vantagem = vantagensExistentes.get(i);
+            } else {
+                vantagem = new Vantagem();
+                vantagem.setEmpresa(empresa);
+            }
+
             vantagem.setDescricao(descricoes.get(i));
             vantagem.setCusto(custos.get(i));
-            vantagem.setEmpresa(empresa);
 
             if (!fotosProdutos.get(i).isEmpty()) {
                 byte[] bytes = fotosProdutos.get(i).getBytes();
@@ -72,7 +76,14 @@ public class EmpresaService {
 
             vantagemRepository.save(vantagem);
         }
+
+        if (vantagensExistentes.size() > descricoes.size()) {
+            for (int i = descricoes.size(); i < vantagensExistentes.size(); i++) {
+                vantagemRepository.delete(vantagensExistentes.get(i));
+            }
+        }
     }
+
 
     @Transactional
     public void removerEmpresa(Long id) {
@@ -86,5 +97,7 @@ public class EmpresaService {
     public List<Empresa> listarTodas() {
         return empresaRepository.findAll();
     }
+
+    public void removerVantagem(Long vantagemId) { vantagemRepository.deleteById(vantagemId); }
 }
 

@@ -52,17 +52,24 @@ public class EmpresaController {
     public String editarEmpresa(
             @PathVariable("id") Long id,
             @RequestParam("nomeEmpresa") String nomeEmpresa,
-            @RequestParam("descricao[]") List<String> descricoes,
-            @RequestParam("custo[]") List<Double> custos,
-            @RequestParam("fotoProduto[]") List<MultipartFile> fotosProdutos
+            @RequestParam(value = "descricao[]", required = false) List<String> descricoes,
+            @RequestParam(value = "custo[]", required = false) List<Double> custos,
+            @RequestParam(value = "fotoProduto[]", required = false) List<MultipartFile> fotosProdutos,
+            Model model
     ) {
         try {
-            empresaService.editarEmpresa(id, nomeEmpresa, descricoes, custos, fotosProdutos);
-        } catch (IOException e) {
-            return "erro";
+            List<String> descricoesSeguras = descricoes != null ? descricoes : List.of();
+            List<Double> custosSeguros = custos != null ? custos : List.of();
+            List<MultipartFile> fotosSeguras = fotosProdutos != null ? fotosProdutos : List.of();
+
+            empresaService.editarEmpresa(id, nomeEmpresa, descricoesSeguras, custosSeguros, fotosSeguras);
+        } catch (Exception e) {
+            model.addAttribute("error", "Erro ao salvar alterações.");
+            return "editarEmpresa";
         }
         return "redirect:/empresa/listar";
     }
+
 
     @PostMapping("/empresa/remover/{id}")
     public String removerEmpresa(@PathVariable("id") Long id) {
@@ -76,5 +83,12 @@ public class EmpresaController {
         model.addAttribute("empresas", empresas);
         return "empresas";
     }
-    
+
+    @PostMapping("/empresa/removerVantagem/{vantagemId}")
+    public String removerVantagem(@PathVariable("vantagemId") Long vantagemId) {
+        empresaService.removerVantagem(vantagemId);
+        return "redirect:/empresa/listar";
+    }
+
+
 }
