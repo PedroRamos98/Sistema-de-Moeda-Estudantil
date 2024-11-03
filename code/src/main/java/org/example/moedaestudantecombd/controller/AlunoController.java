@@ -1,8 +1,10 @@
 package org.example.moedaestudantecombd.controller;
 
 import org.example.moedaestudantecombd.model.Aluno;
+import org.example.moedaestudantecombd.model.Extrato;
 import org.example.moedaestudantecombd.repository.AlunoRepository;
 import org.example.moedaestudantecombd.service.AlunoService;
+import org.example.moedaestudantecombd.service.ExtratoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -23,6 +25,9 @@ public class AlunoController {
 
     @Autowired
     private AlunoRepository alunoRepository;
+
+    @Autowired
+    private ExtratoService extratoService;
 
     @GetMapping("/cadastro")
     public String mostrarCadastro() {
@@ -60,5 +65,12 @@ public class AlunoController {
     public String removerAluno(@PathVariable Long id) {
         alunoService.removerAluno(id);
         return "redirect:/alunos/listar";
+    }
+
+    @GetMapping("/{id}/extratos")
+    public String listarExtratos(@PathVariable Long id, Model model) {
+        List<Extrato> extratos = extratoService.listarExtratosPorAluno(id);
+        model.addAttribute("extratos", extratos);
+        return "extratos";
     }
 }

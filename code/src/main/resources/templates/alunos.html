@@ -34,6 +34,7 @@
       <th scope="col">Endereço</th>
       <th scope="col">Instituição de Ensino</th>
       <th scope="col">Curso</th>
+        <th scope="col">Moedas</th>
       <th scope="col">Ações</th>
     </tr>
     </thead>
@@ -46,8 +47,10 @@
       <td th:text="${aluno.endereco}"></td>
       <td th:text="${aluno.instituicaoEnsino}"></td>
       <td th:text="${aluno.curso}"></td>
+        <td th:text="${aluno.moedas}"></td>
       <td>
         <div class="d-flex">
+          <a th:href="@{/alunos/{id}/extratos(id=${aluno.id})}" class="btn btn-primary">Ver Extratos</a>
           <a th:href="@{/alunos/editar/{id}(id=${aluno.id})}" class="btn btn-warning btn-sm me-2">Editar</a>
           <a th:href="@{/alunos/remover/{id}(id=${aluno.id})}" class="btn btn-danger btn-sm">Deletar</a>
         </div>

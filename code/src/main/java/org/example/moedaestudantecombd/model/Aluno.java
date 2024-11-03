@@ -21,4 +21,6 @@ public class Aluno {
     private String endereco;
     private String instituicaoEnsino;
     private String curso;
+    private Integer moedas;
+
 }
