@@ -56,7 +56,9 @@ public class AlunoController {
 
     @PostMapping("/editar/{id}")
     public String atualizarAluno(@PathVariable Long id, @ModelAttribute Aluno aluno) {
+        Aluno alunoExistente = alunoService.buscarPorId(id);
         aluno.setId(id);
+        aluno.setMoedas(alunoExistente.getMoedas());
         alunoService.salvarAluno(aluno);
         return "redirect:/alunos/listar";
     }

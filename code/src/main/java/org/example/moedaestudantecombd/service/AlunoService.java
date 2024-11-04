@@ -14,7 +14,7 @@ public class AlunoService {
     private AlunoRepository alunoRepository;
 
     public void salvarAluno(Aluno aluno) {
-        aluno.setMoedas(0);
+
         alunoRepository.save(aluno);
     }
 
