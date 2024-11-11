@@ -1,12 +1,24 @@
 @startuml
-actor User
+actor Professor
 participant "ProfessorController" as PC
 participant "ProfessorService" as PS
 participant "ProfessorRepository" as PR
 participant "AlunoRepository" as AR
 participant "ExtratoRepository" as ER
 
-User -> PC: POST /professores/distribuirPontos
+Professor -> PC: POST /professores/login
+activate PC
+PC -> PS: login(email, senha)
+activate PS
+PS -> PR: findByEmailAndSenha(email, senha)
+activate PR
+PR --> PS: Professor
+deactivate PR
+PS --> PC: Professor
+deactivate PS
+deactivate PC
+
+Professor -> PC: POST /professores/distribuirPontos
 activate PC
 PC -> PS: distribuirPontos(professorId, alunoId, quantidade, descricao)
 activate PS
