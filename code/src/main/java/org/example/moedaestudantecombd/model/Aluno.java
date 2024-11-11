@@ -21,6 +21,7 @@ public class Aluno {
     private String endereco;
     private String instituicaoEnsino;
     private String curso;
-    private Integer moedas;
+    private Integer moedas = 0;
+    private String senha;
 
 }
