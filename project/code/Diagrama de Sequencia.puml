@@ -1,0 +1,31 @@
+@startuml
+actor User
+participant "ProfessorController" as PC
+participant "ProfessorService" as PS
+participant "ProfessorRepository" as PR
+participant "AlunoRepository" as AR
+participant "ExtratoRepository" as ER
+
+User -> PC: POST /professores/distribuirPontos
+activate PC
+PC -> PS: distribuirPontos(professorId, alunoId, quantidade, descricao)
+activate PS
+PS -> PR: findById(professorId)
+activate PR
+PR -> PS: Professor
+deactivate PR
+
+PS -> AR: findById(alunoId)
+activate AR
+AR -> PS: Aluno
+deactivate AR
+
+alt Professor has enough coins
+    PS -> PR: save(professor)
+    PS -> AR: save(aluno)
+    PS -> ER: save(extrato)
+else Professor does not have enough coins
+    PS -> PC: throw RuntimeException("Saldo insuficiente")
+deactivate PS
+deactivate PC
+@enduml
