@@ -31,6 +31,7 @@ public class DataLoader {
                     aluno.setInstituicaoEnsino(data[5]);
                     aluno.setCurso(data[6]);
                     aluno.setMoedas(Integer.parseInt(data[7]));
+                    aluno.setSenha(data[8]);
                     alunoService.salvarAluno(aluno);
                 }
             } catch (Exception e) {

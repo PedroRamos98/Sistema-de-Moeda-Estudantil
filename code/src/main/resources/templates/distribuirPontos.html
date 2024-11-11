@@ -4,20 +4,26 @@
   <meta charset="UTF-8">
   <title>Distribuir Pontos</title>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+  <style>
+    body {
+      background-color: #f8f9fa;
+    }
+    .container {
+      background-color: #ffffff;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      max-width: 90%;
+    }
+  </style>
 </head>
 <body>
 <div class="container mt-5">
   <h1 class="text-center mb-4">Distribuir Pontos</h1>
   <form th:action="@{/professores/distribuirPontos}" method="post">
     <div class="mb-3">
-      <label for="professor" class="form-label">Professor</label>
-      <select class="form-control" id="professor" name="professorId" required>
-        <option th:each="professor : ${professores}" th:value="${professor.id}" th:text="${professor.nome}"></option>
-      </select>
-    </div>
-    <div class="mb-3">
       <label for="aluno" class="form-label">Aluno</label>
-      <select class="form-control" id="aluno" name="alunoId" required>
+      <select class="form-select" id="aluno" name="alunoId" required>
         <option th:each="aluno : ${alunos}" th:value="${aluno.id}" th:text="${aluno.nome}"></option>
       </select>
     </div>
@@ -26,7 +32,7 @@
       <input type="number" class="form-control" id="quantidade" name="quantidade" required>
     </div>
     <div class="mb-3">
-      <label for="descricao" class="form-label">Descrição da Transação</label>
+      <label for="descricao" class="form-label">Descrição</label>
       <input type="text" class="form-control" id="descricao" name="descricao" required>
     </div>
     <button type="submit" class="btn btn-primary w-100">Distribuir</button>
