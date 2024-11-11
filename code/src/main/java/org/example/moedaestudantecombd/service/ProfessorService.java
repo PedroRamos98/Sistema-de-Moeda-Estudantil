@@ -82,4 +82,8 @@ public class ProfessorService {
             throw new RuntimeException("Saldo insuficiente");
         }
     }
+
+    public Professor login(String email, String senha) {
+        return professorRepository.findByEmailAndSenha(email, senha);
+    }
 }

@@ -19,4 +19,5 @@ public class Professor {
     private String cpf;
     private String departamento;
     private Integer moedas;
+    private String senha;
 }
