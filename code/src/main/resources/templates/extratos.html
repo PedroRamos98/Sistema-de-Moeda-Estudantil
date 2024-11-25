@@ -22,7 +22,8 @@
             <td th:text="${extrato.data}"></td>
             <td th:text="${extrato.descricao}"></td>
             <td th:text="${extrato.moedasgastas}"></td>
-            <td th:text="${extrato.professor.nome}"></td>
+            <td th:if="${extrato.professor != null}" th:text="${extrato.professor.nome}"></td>
+            <td th:if="${extrato.professor == null}">N/A</td>
         </tr>
         </tbody>
     </table>

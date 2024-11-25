@@ -1,5 +1,6 @@
 package org.example.moedaestudantecombd.controller;
 
+import jakarta.servlet.http.HttpSession;
 import org.example.moedaestudantecombd.model.Aluno;
 import org.example.moedaestudantecombd.model.Extrato;
 import org.example.moedaestudantecombd.repository.AlunoRepository;
@@ -74,5 +75,51 @@ public class AlunoController {
         List<Extrato> extratos = extratoService.listarExtratosPorAluno(id);
         model.addAttribute("extratos", extratos);
         return "extratos";
+    }
+
+    @GetMapping("/login")
+    public String mostrarLogin() {
+        return "loginAluno";
+    }
+
+    @PostMapping("/login")
+    public String login(@RequestParam String email, @RequestParam String senha, HttpSession session) {
+        Aluno aluno = alunoService.login(email, senha);
+        if (aluno != null) {
+            session.setAttribute("alunoLogado", aluno);
+            return "redirect:/alunos/vantagens";
+        } else {
+            return "redirect:/alunos/login?error";
+        }
+    }
+
+    @GetMapping("/vantagens")
+    public String mostrarVantagens(Model model, HttpSession session) {
+        Aluno alunoLogado = (Aluno) session.getAttribute("alunoLogado");
+        if (alunoLogado == null) {
+            return "redirect:/alunos/login";
+        }
+        model.addAttribute("aluno", alunoLogado);
+        model.addAttribute("vantagens", alunoService.listarVantagens());
+        return "listarVantagensAluno";
+    }
+
+    @GetMapping("/vantagens/usar/{id}")
+    public String usarVantagem(@PathVariable Long id, HttpSession session) {
+        Aluno alunoLogado = (Aluno) session.getAttribute("alunoLogado");
+        if (alunoLogado == null) {
+            return "redirect:/alunos/login";
+        }
+        boolean sucesso = alunoService.usarVantagem(alunoLogado, id);
+        if (sucesso) {
+            return "redirect:/alunos/vantagens?success";
+        } else {
+            return "redirect:/alunos/vantagens?error";
+        }
+    }
+
+    @GetMapping("/menu")
+    public String mostrarMenu() {
+        return "menu";
     }
 }
