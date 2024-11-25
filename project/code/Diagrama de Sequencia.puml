@@ -1,10 +1,122 @@
 @startuml
+actor Aluno
 actor Professor
+actor Empresa
+
+participant "AlunoController" as AC
 participant "ProfessorController" as PC
+participant "EmpresaController" as EC
+participant "AlunoService" as AS
 participant "ProfessorService" as PS
-participant "ProfessorRepository" as PR
+participant "EmpresaService" as ES
 participant "AlunoRepository" as AR
+participant "ProfessorRepository" as PR
+participant "ExtratoService" as ES
 participant "ExtratoRepository" as ER
+
+Aluno -> AC: GET /alunos/cadastro
+activate AC
+AC -> AC: mostrarCadastro()
+AC --> Aluno: tela de cadastro
+deactivate AC
+
+Aluno -> AC: POST /alunos/cadastro
+activate AC
+AC -> AS: salvarAluno(aluno)
+activate AS
+AS -> AR: save(aluno)
+activate AR
+AR --> AS: Aluno
+deactivate AR
+AS --> AC: Aluno
+deactivate AS
+AC -> AC: redirect:/alunos/listar
+AC --> Aluno: redirecionar para listar alunos
+deactivate AC
+
+Aluno -> AC: GET /alunos/listar
+activate AC
+AC -> AS: listarTodos()
+activate AS
+AS -> AR: findAll()
+activate AR
+AR --> AS: List<Aluno>
+deactivate AR
+AS --> AC: List<Aluno>
+deactivate AS
+AC -> AC: listarAlunos()
+AC --> Aluno: tela de listar alunos
+deactivate AC
+
+Aluno -> AC: GET /alunos/login
+activate AC
+AC -> AC: mostrarLogin()
+AC --> Aluno: tela de login
+deactivate AC
+
+Aluno -> AC: POST /alunos/login
+activate AC
+AC -> AS: login(email, senha)
+activate AS
+AS -> AR: findByEmailAndSenha(email, senha)
+activate AR
+AR --> AS: Aluno
+deactivate AR
+AS --> AC: Aluno
+deactivate AS
+AC -> AC: redirect:/alunos/vantagens
+AC --> Aluno: redirecionar para listar vantagens
+deactivate AC
+
+Aluno -> AC: GET /alunos/vantagens
+activate AC
+AC -> AS: listarVantagens()
+activate AS
+AS --> AC: List<Vantagem>
+deactivate AS
+AC -> AC: mostrarVantagens()
+AC --> Aluno: tela de listar vantagens
+deactivate AC
+
+Professor -> PC: GET /professores/cadastro
+activate PC
+PC -> PC: mostrarCadastro()
+PC --> Professor: tela de cadastro
+deactivate PC
+
+Professor -> PC: POST /professores/cadastro
+activate PC
+PC -> PS: salvarProfessor(professor)
+activate PS
+PS -> PR: save(professor)
+activate PR
+PR --> PS: Professor
+deactivate PR
+PS --> PC: Professor
+deactivate PS
+PC -> PC: redirect:/professores/listar
+PC --> Professor: redirecionar para listar professores
+deactivate PC
+
+Professor -> PC: GET /professores/listar
+activate PC
+PC -> PS: listarTodos()
+activate PS
+PS -> PR: findAll()
+activate PR
+PR --> PS: List<Professor>
+deactivate PR
+PS --> PC: List<Professor>
+deactivate PS
+PC -> PC: listarProfessores()
+PC --> Professor: tela de listar professores
+deactivate PC
+
+Professor -> PC: GET /professores/login
+activate PC
+PC -> PC: mostrarLogin()
+PC --> Professor: tela de login
+deactivate PC
 
 Professor -> PC: POST /professores/login
 activate PC
@@ -16,6 +128,22 @@ PR --> PS: Professor
 deactivate PR
 PS --> PC: Professor
 deactivate PS
+PC -> PC: redirect:/professores/distribuirPontos
+PC --> Professor: redirecionar para distribuir pontos
+deactivate PC
+
+Professor -> PC: GET /professores/distribuirPontos
+activate PC
+PC -> PS: listarTodos()
+activate PS
+PS -> AR: findAll()
+activate AR
+AR --> PS: List<Aluno>
+deactivate AR
+PS --> PC: List<Aluno>
+deactivate PS
+PC -> PC: mostrarFormDistribuirPontos()
+PC --> Professor: tela de distribuir pontos
 deactivate PC
 
 Professor -> PC: POST /professores/distribuirPontos
@@ -24,20 +152,54 @@ PC -> PS: distribuirPontos(professorId, alunoId, quantidade, descricao)
 activate PS
 PS -> PR: findById(professorId)
 activate PR
-PR -> PS: Professor
+PR --> PS: Professor
 deactivate PR
-
 PS -> AR: findById(alunoId)
 activate AR
-AR -> PS: Aluno
+AR --> PS: Aluno
 deactivate AR
-
-alt Professor has enough coins
-    PS -> PR: save(professor)
-    PS -> AR: save(aluno)
-    PS -> ER: save(extrato)
-else Professor does not have enough coins
-    PS -> PC: throw RuntimeException("Saldo insuficiente")
+PS -> ER: save(extrato)
+activate ER
+ER --> PS: Extrato
+deactivate ER
+PS -> PR: save(professor)
+PS -> AR: save(aluno)
 deactivate PS
+PS --> PC: redirect:/professores/listar
+PC --> Professor: redirecionar para listar professores
 deactivate PC
+
+Empresa -> EC: GET /empresa/cadastro
+activate EC
+EC -> EC: mostrarFormularioCadastro()
+EC --> Empresa: tela de cadastro
+deactivate EC
+
+Empresa -> EC: POST /empresa/cadastro
+activate EC
+EC -> ES: cadastrarEmpresa(nomeEmpresa, descricoes, custos, fotosProdutos)
+activate ES
+ES -> ER: save(empresa)
+activate ER
+ER --> ES: Empresa
+deactivate ER
+ES --> EC: Empresa
+deactivate ES
+EC -> EC: redirect:/empresa/listar
+EC --> Empresa: redirecionar para listar empresas
+deactivate EC
+
+Empresa -> EC: GET /empresa/listar
+activate EC
+EC -> ES: listarTodas()
+activate ES
+ES -> ER: findAll()
+activate ER
+ER --> ES: List<Empresa>
+deactivate ER
+ES --> EC: List<Empresa>
+deactivate ES
+EC -> EC: listarEmpresas()
+EC --> Empresa: tela de listar empresas
+deactivate EC
 @enduml
